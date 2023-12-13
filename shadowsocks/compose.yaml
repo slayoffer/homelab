@@ -1,0 +1,10 @@
+services:
+  shadowsocks:
+    image: shadowsocks/shadowsocks-libev
+    container_name: shadowsocks-libev
+    environment:
+      - PASSWORD=<password>  # Replace <password> with your actual password
+    ports:
+      - "<server-port>:8388"     # Replace <server-port> with your actual server port
+      - "<server-port>:8388/udp" # Replace <server-port> with your actual server port
+    restart: unless-stopped
