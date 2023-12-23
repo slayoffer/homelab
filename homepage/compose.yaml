@@ -6,8 +6,8 @@ services:
     # uncomment if you do not want to run as root
     #user: 1000:1000
     # uncomment if you are not using a reverse proxy
-    ports:
-     - 3000:3000
+    # ports:
+    #  - 3000:3000
     volumes:
       - /home/slayo/docker/homelab/homepage/config:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
