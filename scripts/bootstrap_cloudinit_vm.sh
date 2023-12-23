@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Set the frontend to noninteractive to avoid manual prompts
-export DEBIAN_FRONTEND=noninteractive
-
 # Install qemu-guest-agent
-sudo apt install qemu-guest-agent -y
+DEBIAN_FRONTEND=noninteractive sudo apt install qemu-guest-agent -y
 
 # Download node_exporter
 wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
@@ -44,7 +41,7 @@ WantedBy=multi-user.target
 EOF
 
 # Reload systemd, enable and start node_exporter service
-sudo systemctl daemon-reload && sudo systemctl enable node_exporter && sudo systemctl start node_exporter && sudo systemctl status node_exporter
+sudo systemctl daemon-reload && sudo systemctl enable node_exporter && sudo systemctl start node_exporter
 
 # Create or update 99-disable-network-config.cfg
 echo "network: {config: disabled}" | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
