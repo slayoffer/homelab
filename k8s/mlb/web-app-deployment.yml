@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+  # namespace: nginx1
+  labels:
+    app.kubernetes.io/name: web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: web-app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: web-app
+    spec:
+      containers:
+      - image: nginx
+        name: web-app
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app
+  # namespace: nginx1
+  labels:
+    app.kubernetes.io/name: web-app
+spec:
+  selector:
+    app.kubernetes.io/name: web-app
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  # type: ClusterIP
+  type: LoadBalancer
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-app
+  # namespace: nginx1
+spec:
+  ingressClassName: "nginx"
+  rules:
+  - host: k8s.devcraft.app
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-app
+            port:
+              number: 80
+  # tls:
+  # - hosts:
+  #     - k8s.devcraft.app
+  #   secretName: nginx1
