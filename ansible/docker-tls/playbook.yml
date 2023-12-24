@@ -4,7 +4,7 @@
 - hosts: remote-server
   become: true
   roles:
-    # - system-debian
+    - system-debian
     - setup-secure-remote-docker-daemon-debian
 
 

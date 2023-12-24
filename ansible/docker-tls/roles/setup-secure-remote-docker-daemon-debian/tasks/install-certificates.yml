@@ -9,13 +9,22 @@
   shell: "/home/{{ username }}/docker-host-certs.sh"
   become_user: "{{ username }}"
 
+# - name: "Ensure required certs and keys are provided"
+#   assert: 
+#     that: "{{ item }} != \"\""
+#   with_items:
+#     - rootca_certificate
+#     - server_certificate
+#     - server_privatekey
+
 - name: "Ensure required certs and keys are provided"
   assert: 
-    that: "{{ item }} != \"\""
+    that: 
+      - "{{ item | default('') != '' }}"
   with_items:
-    - rootca_certificate
-    - server_certificate
-    - server_privatekey
+    - "{{ rootca_certificate }}"
+    - "{{ server_certificate }}"
+    - "{{ server_privatekey }}"
 
 - name: "Remove certificate generation script from remote server"
   file:

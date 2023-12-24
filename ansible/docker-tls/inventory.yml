@@ -5,7 +5,7 @@ all: # Все серверы в нашем inventory, all - обязателен
     geekconsole: # Группа хостов
       hosts:
         remote-server:
-          ansible_host: "{{ remote_server_public_ip }}"
+          ansible_host: "{{ remote_server_local_ip }}"
           ansible_connection: ssh
           ansible_user: "{{ username }}"
           ansible_port: "{{ remote_server_ssh_port }}"

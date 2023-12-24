@@ -1,4 +1,9 @@
 {
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  },
   "tlsverify": true,
   "tlscacert": "/etc/docker/ssl/ca.pem",
   "tlscert": "/etc/docker/ssl/server-cert.pem",
