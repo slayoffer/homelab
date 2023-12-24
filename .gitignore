@@ -7,6 +7,13 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+# ansible
+.vaultkey
+.yamllint
+./.config
+.DS_Store
+.vscode
+
 # secrets
 secret*.yaml
 secret*.yml
