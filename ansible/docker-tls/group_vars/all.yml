@@ -1,12 +1,12 @@
 #TODO: SET REMOTE USERNAME, REMOTE SERVER DOMAIN NAMES AND IPS - USED FOR DOCKER TLS CERTS AND ANSIBLE INVENTORY FILE
-remote_server_fqdn: vld-app193
-remote_server_shortname: vld-app193
-remote_server_public_ip: 10.128.53.22
-remote_server_local_ip: 10.128.53.22
+remote_server_fqdn: {{ remote_server_fqdn }}
+remote_server_shortname: docker
+remote_server_public_ip: {{ remote_server_public_ip }}
+remote_server_local_ip: 192.168.1.101
 username: {{ username }}
 
 #TODO: SET TLS SERVER CERT PASSWORD
-certificate_password: {{ password }}
+certificate_password: {{ certificate_password }}
 
 #! PRIVILEGE ESCALATION SECTION - CHANGE ONLY IF NEEDED !!!
 # ansible_become: true
@@ -14,10 +14,10 @@ certificate_password: {{ password }}
 # ansible_become_method: sudo
 
 #! CHANGE DOCKER TLS PORT ONLY IF NEEDED !!!
-docker_port: 2376
+docker_port: {{ docker_port }}
 
 #! CHANGE REMOTE SERVER SSH PORT ONLY IF NEEDED !!!
-remote_server_ssh_port: 22
+remote_server_ssh_port: {{ remote_server_ssh_port }}
 
 #! CHANGE USER LOCAL CERTIFICATES FOLDER ONLY IF NEEDED !!!
 user_docker_certificates_dir: "/home/{{ username }}/.docker"
@@ -33,4 +33,4 @@ local_username_password: {{ local_username_password }}
 samba_share: //server-samba.com/letsencryptstore$
 samba_mount_point: /certs
 samba_username: sslservice
-samba_password: password
+samba_password: {{ samba_password }}

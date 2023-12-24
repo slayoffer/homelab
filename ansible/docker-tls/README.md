@@ -63,4 +63,4 @@
 
 ## Как запустить плейбук?
 
-Плейбук запускается командой `ansible-playbook playbook.yml` при нахождении в его корневой директории.
+Плейбук запускается командой `ansible-playbook playbook.yml --vault-password-file .vaultkey` при нахождении в его корневой директории.
