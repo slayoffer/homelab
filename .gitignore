@@ -11,6 +11,7 @@ lerna-debug.log*
 secret*.yaml
 secret*.yml
 secrets/
+k8s/Traefik/Cert-Manager/Issuers/secret-cf-token.yaml
 
 # dirs
 config/
