@@ -15,6 +15,7 @@ lerna-debug.log*
 .vscode
 
 # secrets
+letsencrypt*
 secret*.yaml
 secret*.yml
 secrets/
