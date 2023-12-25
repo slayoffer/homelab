@@ -19,6 +19,7 @@ secret*.yaml
 secret*.yml
 secrets/
 k8s/Traefik/Cert-Manager/Issuers/secret-cf-token.yaml
+k8s/Traefik/Cert-Manager/Issuers/letsencrypt-production.yaml
 
 # dirs
 config/
