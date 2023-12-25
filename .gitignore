@@ -17,7 +17,8 @@ lerna-debug.log*
 # secrets
 devcraft*
 letsencrypt*
-secret*.yaml
+secret*
+/home/slayo/docker/homelab/k8s/Traefik/Dashboard/secret-dashboard.yaml
 secret*.yml
 secrets/
 k8s/Traefik/Cert-Manager/Issuers/secret-cf-token.yaml
