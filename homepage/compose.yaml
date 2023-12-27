@@ -9,6 +9,7 @@ services:
     # ports:
     #  - 3000:3000
     volumes:
+      - /home/slayo/docker/homelab/homepage/icons:/app/public/icons
       - /home/slayo/docker/homelab/homepage/config:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
     networks:

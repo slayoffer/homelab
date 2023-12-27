@@ -1,0 +1,23 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: portainer
+  namespace: portainer
+  annotations: 
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`portainer.devcraft.app`) # change me
+      kind: Rule
+      services:
+        - name: portainer
+          port: 9443
+          scheme: https
+          passHostHeader: true
+      middlewares:
+        - name: default-headers
+  tls:
+    secretName: devcraft-tls # change me

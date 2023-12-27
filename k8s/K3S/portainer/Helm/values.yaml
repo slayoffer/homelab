@@ -1,0 +1,15 @@
+nodeSelector: 
+  worker: "true"
+
+service:
+  enabled: true
+  type: ClusterIP
+  # type: LoadBalancer
+  # annotations: {}
+  # labels: {}
+  # loadBalancerSourceRanges: []
+  # externalIPs: []
+
+persistence:
+  enabled: true
+  existingClaim: portainer
