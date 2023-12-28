@@ -83,8 +83,8 @@ spec:
     targetPort: 51820
   selector:
     app: wg-easy
-  # type: ClusterIP
-  type: LoadBalancer
+  type: ClusterIP
+  # type: LoadBalancer
 ---
 apiVersion: v1
 kind: Service

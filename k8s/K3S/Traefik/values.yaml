@@ -5,6 +5,7 @@ globalArguments:
 additionalArguments:
   - "--serversTransport.insecureSkipVerify=true"
   - "--log.level=INFO"
+  - '--entrypoints.wireguard.address=:51824/udp'
 
 deployment:
   enabled: true
@@ -25,6 +26,14 @@ ports:
   websecure:
     tls:
       enabled: true
+  wireguard:
+    port: 51824
+    # hostPort: 51824
+    containerPort: 51824
+    expose: true
+    exposedPort: 51824
+    # The port protocol (TCP/UDP)
+    protocol: UDP
       
 ingressRoute:
   dashboard:

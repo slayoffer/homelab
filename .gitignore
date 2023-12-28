@@ -7,6 +7,8 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+k8s/K3S/CrowdSec/CrowdSec/values.yaml
+
 # ansible
 .vaultkey
 .yamllint
