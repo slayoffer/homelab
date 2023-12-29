@@ -22,3 +22,5 @@
 1. Copy data from Docker Host to new drive (substitute your values below)
 
 > sudo rsync -avxHAX username@DockerHostIP:/home/ubuntu/docker/some-directory/* /tmp/folder
+
+> sudo umount /tmp/folder
