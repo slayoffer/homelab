@@ -12,5 +12,8 @@ helm upgrade \
 homepage jameswynn/homepage \
 -f /home/slayo/docker/homelab/k8s/k3s/homepage/Helm/values.yaml
 
+kubectl rollout restart deployment/homepage -n homepage
+
+# to delete
 helm delete homepage
 
