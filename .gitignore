@@ -21,7 +21,7 @@ k8s/k3s/homepage/Helm/values.yaml
 # secrets
 devcraft*
 letsencrypt*
-secret*
+*secret*
 /home/slayo/docker/homelab/k8s/Traefik/Dashboard/secret-dashboard.yaml
 secret*.yml
 secrets/
