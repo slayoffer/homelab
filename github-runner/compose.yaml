@@ -1,0 +1,13 @@
+services:
+  github-runner:
+    container_name: github-runner
+    build: .
+    restart: unless-stopped
+    environment:
+      GITHUB_PERSONAL_TOKEN: ${GITHUB_PERSONAL_TOKEN}
+      GITHUB_OWNER: ${GITHUB_OWNER}
+      GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: geekconsole-dev
+  labels:
+    app.kubernetes.io/name: geekconsole-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: geekconsole-dev
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: geekconsole-dev
+    spec:
+      containers:
+      - image: slayoffer/geek-console:develop-latest
+        name: geekconsole-dev
+        env:
+        - name: CD_SUPABASE_DEV_ANON_KEY
+          value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5ZWNsc3RmY29jdnN2bHV4aXJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY5ODk2NzUsImV4cCI6MjAwMjU2NTY3NX0.zGPfAvo3oex-OxOOekDXjCZnFtp4BCUazCP4q6WUvxY"
+        - name: CD_SUPABASE_DEV_API_URL
+          value: "https://ryeclstfcocvsvluxirq.supabase.co"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: geekconsole-dev
+  labels:
+    app.kubernetes.io/name: geekconsole-dev
+spec:
+  selector:
+    app.kubernetes.io/name: geekconsole-dev
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  type: LoadBalancer

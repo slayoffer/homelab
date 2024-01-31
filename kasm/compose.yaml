@@ -1,0 +1,63 @@
+---
+services:
+  kasm:
+    image: lscr.io/linuxserver/kasm:latest
+    container_name: kasm
+    privileged: true
+    restart: unless-stopped
+    environment:
+      - KASM_PORT=4443
+      # - DOCKER_HUB_USERNAME=USER #optional
+      # - DOCKER_HUB_PASSWORD=PASS #optional
+      # - DOCKER_MTU=1500 #optional
+    volumes:
+      - kasm-data:/opt
+      # - /path/to/profiles:/profiles #optional
+      # - /dev/input:/dev/input #optional
+      # - /run/udev/data:/run/udev/data #optional
+    # ports:
+    #   - 3009:3000
+    #   - 4443:4443
+    # networks:
+    #   proxy:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kasm.entrypoints=https"
+      - "traefik.http.routers.kasm.rule=Host(`$PROXY_DOMAIN`)"
+      - "traefik.http.routers.kasm.tls=true"
+      - "traefik.http.services.kasm.loadbalancer.server.port=4443"
+      - "traefik.http.services.kasm.loadbalancer.server.scheme=https"
+      - "traefik.http.routers.kasm.tls.certresolver=cloudflare"
+      # - "traefik.http.routers.kasm.middlewares=default-whitelist@file" 
+      - "traefik.docker.network=proxy"
+    network_mode: "service:gluetun"
+    depends_on:
+      - gluetun
+
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: kasm-gluetun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 3009:3000 # kasm install
+      - 4443:4443 # kasm gui
+    environment:
+      - VPN_SERVICE_PROVIDER=custom
+      - VPN_TYPE=$VPN_TYPE
+      - VPN_ENDPOINT_IP=$VPN_ENDPOINT_IP
+      - VPN_ENDPOINT_PORT=$VPN_ENDPOINT_PORT
+      - WIREGUARD_PUBLIC_KEY=$WIREGUARD_PUBLIC_KEY
+      - WIREGUARD_PRIVATE_KEY=$WIREGUARD_PRIVATE_KEY
+      - WIREGUARD_PRESHARED_KEY=$WIREGUARD_PRESHARED_KEY
+      - WIREGUARD_ADDRESSES=$WIREGUARD_ADDRESSES
+    networks:
+      proxy:
+      default:
+
+volumes:
+  kasm-data:
+
+networks:
+  proxy:
+    external: true

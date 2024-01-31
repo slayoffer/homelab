@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rick-nginx
+  labels:
+    app: rick-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rick-nginx
+  template:
+    metadata:
+      labels:
+        app: rick-nginx
+    spec:
+      containers:
+      - name: rick-nginx
+        image: slayoffer/rick-astley-nginx:test
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rick-nginx
+  name: rick-nginx
+  namespace: default
+spec:
+  ports:
+  - name: rick-nginx-http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: rick-nginx
+  externalTrafficPolicy: Cluster
+  type: LoadBalancer

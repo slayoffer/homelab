@@ -1,0 +1,12 @@
+# THIS FILE IS ONLY FOR ANSIBLE PUSH METHOD
+
+all: # Все серверы в нашем inventory, all - обязателен
+  children: # Дочерние группы для all
+    geekconsole: # Группа хостов
+      hosts:
+        remote-server:
+          ansible_host: "{{ remote_server_local_ip }}"
+          ansible_connection: ssh
+          ansible_user: "{{ username }}"
+          ansible_port: "{{ remote_server_ssh_port }}"
+          ansible_fqdn: "{{ remote_server_fqdn }}"

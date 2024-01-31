@@ -1,0 +1,27 @@
+services:
+  nessus_tw:
+    image: tenable/nessus:latest-ubuntu
+    # ports:
+    #   - 8834:8834
+    container_name: nessus
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nessus.entrypoints=http"
+      - "traefik.http.routers.nessus.rule=Host(`nessus.devcraft.app`)"
+      - "traefik.http.routers.nessus.middlewares=default-whitelist@file"
+      - "traefik.http.middlewares.nessus-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.nessus.middlewares=nessus-https-redirect"
+      - "traefik.http.routers.nessus-secure.entrypoints=https"
+      - "traefik.http.routers.nessus-secure.rule=Host(`nessus.devcraft.app`)"
+      - "traefik.http.routers.nessus-secure.tls=true"
+      - "traefik.http.routers.nessus-secure.service=nessus"
+      - "traefik.http.services.nessus.loadbalancer.server.port=8834"
+      - "traefik.http.services.nessus.loadbalancer.server.scheme=https"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.nessus-secure.middlewares=default-whitelist@file" 
+    networks:
+      - proxy
+networks:
+  proxy:
+    external: true

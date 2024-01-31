@@ -1,0 +1,58 @@
+services:
+  backup:
+    image: mazzolino/restic
+    container_name: restic
+    hostname: slayo-server
+    restart: unless-stopped
+    environment:
+      RUN_ON_STARTUP: "false" #change as you wish
+      BACKUP_CRON: "0 */12 * * *" #this is twice daily, i.e., every 12 hours
+      RESTIC_REPOSITORY: /restic
+      RESTIC_PASSWORD: ${RESTIC_PASSWORD}
+      RESTIC_BACKUP_SOURCES: /mnt/volumes
+      RESTIC_COMPRESSION: auto 
+      RESTIC_BACKUP_ARGS: >-
+        --tag restic-docker-to-windows-backup #add tags, whatever you need to mark backups
+        --verbose
+      RESTIC_FORGET_ARGS: >- #change as required
+        --keep-last 2
+        --keep-daily 2
+        --keep-weekly 2
+        --keep-monthly 2
+      TZ: Asia/Vladivostok
+    volumes:
+      - /mnt/proxmox-backup/restic:/restic #change the left hand side to where you want to store the backups. As you can see I'm storing it on my NAS that is mounted to the host /home/truenas
+      - /mnt/proxmox-backup/restic/temp:/tmp-for-restore #USE THIS FOLDER FOR RESTORE - CAN VIEW EACH CONTAINER
+      - /home/slayo/docker:/mnt/volumes:ro
+    security_opt:
+      - no-new-privileges:true
+
+  prune:
+    image: mazzolino/restic
+    container_name: restic-prune
+    restart: unless-stopped
+    hostname: slayo-server
+    environment:
+      RUN_ON_STARTUP: "true"
+      PRUNE_CRON: "0 0 4 * * *"
+      RESTIC_REPOSITORY: /restic
+      RESTIC_PASSWORD: ${RESTIC_PASSWORD}
+      TZ: Asia/Vladivostok
+    security_opt:
+      - no-new-privileges:true
+
+  check:
+    image: mazzolino/restic
+    container_name: restic-check
+    restart: unless-stopped
+    hostname: slayo-server
+    environment:
+      RUN_ON_STARTUP: "false"
+      CHECK_CRON: "0 15 5 * * *"
+      RESTIC_CHECK_ARGS: >-
+        --read-data-subset=10%
+      RESTIC_REPOSITORY: /restic
+      RESTIC_PASSWORD: ${RESTIC_PASSWORD}
+      TZ: Asia/Vladivostok
+    security_opt:
+      - no-new-privileges:true

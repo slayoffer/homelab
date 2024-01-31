@@ -1,0 +1,10 @@
+# THIS PLAYBOOK IS FOR ANSIBLE PUSH METHOD
+---
+
+- hosts: remote-server
+  become: true
+  roles:
+    - system-debian
+    - setup-secure-remote-docker-daemon-debian
+
+
