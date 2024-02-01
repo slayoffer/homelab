@@ -10,7 +10,7 @@ k apply -f /home/slayo/docker/homelab/k8s/k3s/homepage/Manifest
 helm upgrade \
 --namespace homepage \
 homepage jameswynn/homepage \
--f /home/slayo/docker/homelab/k8s/k3s/homepage/Helm/values.yaml
+-f /home/slayo/homelab/k8s/homepage/Helm/values.yaml
 
 kubectl rollout restart deployment/homepage -n homepage
 
