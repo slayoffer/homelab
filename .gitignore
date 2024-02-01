@@ -9,6 +9,7 @@ lerna-debug.log*
 
 # values
 *values.yaml
+*tfvars
 
 # ansible
 .vaultkey
