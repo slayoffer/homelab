@@ -1,0 +1,17 @@
+apiVersion: kubegres.reactive-tech.io/v1
+kind: Kubegres
+metadata:
+  name: pgsql
+  namespace: postgres
+
+spec:
+   replicas: 1
+   image: postgres:14.1
+   database:
+      size: 5Gi
+      storageClassName: local-storage
+   env:
+      - name: POSTGRES_PASSWORD
+        value: "123123"
+      - name: POSTGRES_REPLICATION_PASSWORD
+        value: "123123"
