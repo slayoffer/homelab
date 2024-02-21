@@ -57,4 +57,4 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: my-app
+      'app=my-app'
