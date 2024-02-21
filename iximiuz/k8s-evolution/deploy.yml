@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-v1
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: my-app-v1
+  template:
+    metadata:
+      labels:
+        app: my-app  # common
+        ver: v1      # unique
+    spec:
+      containers:
+      - image: ghcr.io/iximiuz/labs/kubernetes-101/app:v1.0.0
+        name: app
+      - image: ghcr.io/iximiuz/labs/kubernetes-101/proxy:v1.0.0
+        name: proxy
+      hostAliases:
+      - ip: 127.0.0.1
+        hostnames:
+        - app
+  replicas: 5  # <---- Important!
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-v2
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: my-app-v2
+  template:
+    metadata:
+      labels:
+        app: my-app  # common
+        ver: v2      # unique
+    spec:
+      containers:
+      - image: ghcr.io/iximiuz/labs/kubernetes-101/app:v1.0.0
+        name: app
+      - image: ghcr.io/iximiuz/labs/kubernetes-101/proxy:v1.0.0
+        name: proxy
+      hostAliases:
+      - ip: 127.0.0.1
+        hostnames:
+        - app
+  replicas: 5  # <---- Important!
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-svc
+spec:
+  selector:
+    matchLabels:
+      app: my-app

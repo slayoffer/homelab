@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-02
+spec:
+  containers:
+  - image: ghcr.io/iximiuz/labs/kubernetes-101/app:v1.0.0
+    name: app
+  - image: ghcr.io/iximiuz/labs/kubernetes-101/proxy:v1.0.0
+    name: proxy
+  hostAliases:  #  <--- To mitigate the lack of the docker networking magic
+  - ip: "127.0.0.1"
+    hostnames:
+    - "app"
