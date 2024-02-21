@@ -34,8 +34,8 @@ traefik traefik/traefik \
 
 helm upgrade \
 reflector emberstack/reflector \
---namespace reflector
-- f /home/slayo/homelab/k8s/CrowdSec/Reflector/values.yaml
+--namespace reflector \
+-f /home/slayo/homelab/k8s/CrowdSec/Reflector/values.yaml
 
 helm install \
 crowdsec crowdsec/crowdsec \
