@@ -1,2 +1,6 @@
 nodeSelector: 
   worker: "true"
+
+deployment:
+  enabled: true
+  replicas: 2

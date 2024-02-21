@@ -32,6 +32,11 @@ traefik traefik/traefik \
 --namespace traefik \
 -f /home/slayo/dev/homelab/k8s/k3s/CrowdSec/Traefik/Helm/values.yaml
 
+helm upgrade \
+reflector emberstack/reflector \
+--namespace reflector
+- f /home/slayo/homelab/k8s/CrowdSec/Reflector/values.yaml
+
 helm install \
 crowdsec crowdsec/crowdsec \
 --create-namespace \
